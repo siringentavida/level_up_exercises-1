@@ -13,11 +13,10 @@ class Dinodex
       csv.by_row!
       csv.each do |row|
         dino_temp = row.to_hash
-        if dino_temp['genus'] != nil
-          dino_temp['name'] = dino_temp.delete('genus')
-          dino_temp['diet'] = (dino_temp.delete('carnivore') == 'Yes') ? 'Carnivore' : 'Not Carnivore'
-        elsif  dino_temp['weight'] = dino_temp.delete('weight_in_lbs')
-        end
+        dino_temp['weight'] ||= dino_temp.delete('weight_in_lbs')
+        dino_temp['carnivore'] == 'Yes' ? 'Carnivore' : 'Not Carnivore'
+        dino_temp['diet'] ||= dino_temp.delete('carnivore')
+        dino_temp['name'] ||= dino_temp.delete('genus')
         @alldinos << dino_temp
       end
     end
