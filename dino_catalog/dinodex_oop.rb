@@ -61,10 +61,10 @@ class Dinodex
       dinotemp = dino_d['name']
       if (dinotemp.casecmp(user_req) == 0)
         print("************************************************\n")
-        dino_d.each.sort_by { |k, v| print k.upcase, ":\t", v, "\n" }
+        dino_d.each { |k, v| print k.upcase, ":\t", v, "\n" unless v.nil? }
         print("************************************************\n")
       elsif user_req.upcase == 'ALL'
-        dino_d.each.sort_by { |k, v| print k.upcase, ":\t", v, "\n" }
+        dino_d.each { |k, v| print k.upcase, ":\t", v, "\n" unless v.nil? }
         print("************************************************\n")
       end
     end
