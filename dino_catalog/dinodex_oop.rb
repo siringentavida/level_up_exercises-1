@@ -1,5 +1,6 @@
 require 'csv'
 require 'pry'
+require 'json'
 
 # Merge dino files and extract based on user input
 class Dinodex
@@ -13,12 +14,17 @@ class Dinodex
       csv.by_row!
       csv.each do |row|
         dino_temp = row.to_hash
-        dino_temp['weight'] ||= dino_temp.delete('weight_in_lbs')
-        dino_temp['carnivore'] == 'Yes' ? 'Carnivore' : 'Not Carnivore'
-        dino_temp['diet'] ||= dino_temp.delete('carnivore')
-        dino_temp['name'] ||= dino_temp.delete('genus')
+        dino_temp['carnivore'] = 'Carnivore' if dino_temp['carnivore'] == 'Yes'
         @alldinos << dino_temp
       end
+    end
+    fix_value_hdr
+  end
+
+  def fix_value_hdr
+    hdr_map = { 'weight_in_lbs' => 'weight', 'genus' => 'name', 'carnivore' => 'diet' }
+    @alldinos.each do |dinos|
+      dinos.keys.each { |k| dinos[hdr_map[k]] = dinos.delete(k) if hdr_map[k] }
     end
   end
 
@@ -68,6 +74,12 @@ class Dinodex
       end
     end
   end
+
+  def convert_json
+    json_file = File.new('dinos.json', 'w')
+    json_file.puts @alldinos.to_json
+    json_file.close
+  end
 end
 
 array_csv = ['dinodex.csv', 'african_dinosaur_export.csv']
@@ -101,3 +113,4 @@ userinput.each do |val|
       puts 'No selection made'
   end
 end
+my_dino.convert_json
