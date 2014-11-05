@@ -1,7 +1,6 @@
 # Killer facts about triangles AWW YEAH
 class Triangle
   attr_accessor :side1, :side2, :side3
-
   def initialize(side1, side2, side3)
     @side1, @side2, @side3 = side1, side2, side3
   end
@@ -24,14 +23,14 @@ class Triangle
     puts 'This triangle is scalene and mathematically boring.' if scalene?
     angles = calculate_angles(side1, side2, side3)
     puts "The angles of this triangle are #{angles.join(',')}"
-    puts "This triangle is also a right triangle! \n \n" if angles.include? 90
+    puts "This triangle is also a right triangle! \n" if angles.include? 90
   end
 
   def calculate_angles(a, b, c)
-    anglea = radians_to_degrees(Math.acos((b**2 + c**2 - a**2) / (2.0 * b * c)))
-    angleb = radians_to_degrees(Math.acos((a**2 + c**2 - b**2) / (2.0 * a * c)))
-    anglec = radians_to_degrees(Math.acos((a**2 + b**2 - c**2) / (2.0 * a * b)))
-    [anglea, angleb, anglec]
+    angle_a = radians_to_degrees(Math.acos((b**2 + c**2 - a**2) / (2.0 * b * c)))
+    angle_b = radians_to_degrees(Math.acos((a**2 + c**2 - b**2) / (2.0 * a * c)))
+    angle_c = radians_to_degrees(Math.acos((a**2 + b**2 - c**2) / (2.0 * a * b)))
+    [angle_a, angle_b, angle_c]
   end
 
   def radians_to_degrees(rads)
